@@ -16,7 +16,7 @@
         
 module(
     name = "tf2_msgs",
-    version = "2.4.1",
+    version = "0.43.0",
     compatibility_level = 0,
 )
 
