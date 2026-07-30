@@ -2,6 +2,82 @@
 Changelog for package tf2_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.46.3 (2026-07-28)
+-------------------
+* Cleanup message filters headers (`#963 <https://github.com/ros2/geometry2/issues/963>`_)
+* Add generated version header for tf2_ros (`#955 <https://github.com/ros2/geometry2/issues/955>`_)
+* Contributors: Alejandro Hernández Cordero, Maurice Alexander Purnawan
+
+0.46.2 (2026-07-14)
+-------------------
+* use C++ 20 in default. (`#953 <https://github.com/ros2/geometry2/issues/953>`_)
+* Removed deprecated code (`#940 <https://github.com/ros2/geometry2/issues/940>`_)
+* Contributors: Alejandro Hernández Cordero, Tomoya Fujita
+
+0.46.1 (2026-06-29)
+-------------------
+* Optimize header includes (`#952 <https://github.com/ros2/geometry2/issues/952>`_)
+* Move implementation from hpp to cpp (`#951 <https://github.com/ros2/geometry2/issues/951>`_)
+* Change constructor overloads to sidestep uncrustify differences (`#949 <https://github.com/ros2/geometry2/issues/949>`_)
+* Cleanup headers (`#928 <https://github.com/ros2/geometry2/issues/928>`_)
+* Contributors: Alejandro Hernández Cordero, Michael Carroll
+
+0.46.0 (2026-05-07)
+-------------------
+* Improve tf2_ros::MessageFilter test reliability (`#929 <https://github.com/ros2/geometry2/issues/929>`_)
+* Contributors: Michael Carroll
+
+0.45.7 (2026-04-09)
+-------------------
+* fix typos (`#921 <https://github.com/ros2/geometry2/issues/921>`_)
+* Use new ROSIDL aggregate CMake target (`#907 <https://github.com/ros2/geometry2/issues/907>`_)
+* Contributors: Auguste Lalande, Emerson Knapp
+
+0.45.6 (2026-01-09)
+-------------------
+
+0.45.5 (2025-12-16)
+-------------------
+* Move \author tags to \file \brief (`#870 <https://github.com/ros2/geometry2/issues/870>`_)
+* Modernize conf.py files to only include modified Copyright, eliminati… (`#865 <https://github.com/ros2/geometry2/issues/865>`_)
+* Contributors: R Kent James
+
+0.45.4 (2025-11-28)
+-------------------
+
+0.45.3 (2025-11-24)
+-------------------
+* Disable TAGFILES in rosdoc2 to separate namespace tf2 documentation into packages (`#856 <https://github.com/ros2/geometry2/issues/856>`_)
+* Prevent log spam from tf2_ros message_filter (`#851 <https://github.com/ros2/geometry2/issues/851>`_)
+* Contributors: R Kent James, mini-1235
+
+0.45.2 (2025-11-07)
+-------------------
+* Updated tf2_echo with some other features (`#802 <https://github.com/ros2/geometry2/issues/802>`_) (`#840 <https://github.com/ros2/geometry2/issues/840>`_)
+* Replace std::sleep_for with rclcpp::clock::sleep_for (`#835 <https://github.com/ros2/geometry2/issues/835>`_)
+* Contributors: Alejandro Hernández Cordero, mergify[bot]
+
+0.45.1 (2025-10-17)
+-------------------
+* Removed deprecation rclcpp::spin_some(node) (`#824 <https://github.com/ros2/geometry2/issues/824>`_)
+* Contributors: Alejandro Hernández Cordero
+
+0.45.0 (2025-08-27)
+-------------------
+* Adding NodeInterfaces API Design (`#714 <https://github.com/ros2/geometry2/issues/714>`_)
+* ger rid of deprecated rclcpp::spin_some(). (`#821 <https://github.com/ros2/geometry2/issues/821>`_)
+* Contributors: Lucas Wendland, Tomoya Fujita
+
+0.44.0 (2025-07-29)
+-------------------
+* Ensure variable is considered volatile in message_filter_test (`#812 <https://github.com/ros2/geometry2/issues/812>`_)
+* Contributors: Mirko Ferrati
+
+0.43.1 (2025-07-18)
+-------------------
+* Change tf2_ros C to C++ headers (`#805 <https://github.com/ros2/geometry2/issues/805>`_)
+* Contributors: Gary Servin
+
 0.43.0 (2025-07-01)
 -------------------
 * Fix message filter target frames string (`#803 <https://github.com/ros2/geometry2/issues/803>`_)

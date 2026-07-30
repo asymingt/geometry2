@@ -34,8 +34,8 @@
 
 #include "gtest/gtest.h"
 
-#include "tf2_ros/buffer.h"
-#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.hpp"
+#include "tf2_ros/transform_listener.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 #include "builtin_interfaces/msg/time.hpp"
@@ -46,8 +46,8 @@ TEST(tf2_ros_test_listener, transform_listener)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
 
-  tf2_ros::Buffer buffer(clock);
-  tf2_ros::TransformListener tfl(buffer, node, false);
+  tf2_ros::Buffer buffer(clock, tf2::Duration(tf2::BUFFER_CORE_DEFAULT_CACHE_TIME), *node);
+  tf2_ros::TransformListener tfl(buffer, *node, false);
 
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);

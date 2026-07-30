@@ -28,7 +28,9 @@
  */
 
 
-/** \author Tully Foote */
+/** \file
+ *  \brief Author: Tully Foote
+ */
 
 #ifndef ROSTEST_PERMUTER_HPP
 #define ROSTEST_PERMUTER_HPP
@@ -141,7 +143,7 @@ public:
         //printf("stepping level %d returning true \n", level);
         return true;
       } else {
-        //printf("reseting level %d\n", level);
+        //printf("resetting level %d\n", level);
         options_[level]->reset();
       }
     }

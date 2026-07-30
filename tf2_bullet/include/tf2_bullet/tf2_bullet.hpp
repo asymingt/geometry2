@@ -26,19 +26,19 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-/** \author Wim Meeussen */
+/** \file
+ *  \brief Author: Wim Meeussen
+ */
 
 #ifndef TF2_BULLET__TF2_BULLET_HPP_
 #define TF2_BULLET__TF2_BULLET_HPP_
-
-#include <iostream>
 
 #include "tf2/convert.hpp"
 #include "LinearMath/btQuaternion.h"
 #include "LinearMath/btScalar.h"
 #include "LinearMath/btTransform.h"
 #include "geometry_msgs/msg/point_stamped.hpp"
-#include "tf2_ros/buffer_interface.h"
+#include "tf2_ros/buffer_interface.hpp"
 
 #if (BT_BULLET_VERSION <= 282)
 // Suppress compilation warning on older versions of Bullet.

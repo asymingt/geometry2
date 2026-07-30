@@ -2,6 +2,67 @@
 Changelog for package tf2_ros_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.46.3 (2026-07-28)
+-------------------
+
+0.46.2 (2026-07-14)
+-------------------
+
+0.46.1 (2026-06-29)
+-------------------
+
+0.46.0 (2026-05-07)
+-------------------
+* tf2_ros_py: Make node parameter optional in TransformListener (`#935 <https://github.com/ros2/geometry2/issues/935>`_)
+* tf2_ros_py: Ignore ExternalShutdownException in background thread (`#930 <https://github.com/ros2/geometry2/issues/930>`_)
+* Contributors: Martin Pecka
+
+0.45.7 (2026-04-09)
+-------------------
+* fix typos (`#921 <https://github.com/ros2/geometry2/issues/921>`_)
+* flake8 fixes (`#919 <https://github.com/ros2/geometry2/issues/919>`_)
+* prevent AttributeError when static_only=true (`#906 <https://github.com/ros2/geometry2/issues/906>`_)
+* fixed typoe in buffer.py (`#905 <https://github.com/ros2/geometry2/issues/905>`_)
+* Increase robustness of listener and broadcaster test (`#894 <https://github.com/ros2/geometry2/issues/894>`_)
+* Contributors: Alejandro Hernández Cordero, Auguste Lalande, Michael Carlstrom, Michael Carroll
+
+0.45.6 (2026-01-09)
+-------------------
+
+0.45.5 (2025-12-16)
+-------------------
+* Modernize conf.py files to only include modified Copyright, eliminati… (`#865 <https://github.com/ros2/geometry2/issues/865>`_)
+* Contributors: R Kent James
+
+0.45.4 (2025-11-28)
+-------------------
+
+0.45.3 (2025-11-24)
+-------------------
+* Disable TAGFILES in rosdoc2 to separate namespace tf2 documentation into packages (`#856 <https://github.com/ros2/geometry2/issues/856>`_)
+* Contributors: R Kent James
+
+0.45.2 (2025-11-07)
+-------------------
+* Cleanup TF2 dependencies (`#843 <https://github.com/ros2/geometry2/issues/843>`_)
+* Contributors: Chris Lalancette
+
+0.45.1 (2025-10-17)
+-------------------
+
+0.45.0 (2025-08-27)
+-------------------
+* Fixed inconsistency of C++ and Python implementations of StaticTransformPublisher (`#820 <https://github.com/ros2/geometry2/issues/820>`_)
+* Contributors: Dominik
+
+0.44.0 (2025-07-29)
+-------------------
+
+0.43.1 (2025-07-18)
+-------------------
+* Fix deprecation warning (`#804 <https://github.com/ros2/geometry2/issues/804>`_)
+* Contributors: mosfet80
+
 0.43.0 (2025-07-01)
 -------------------
 

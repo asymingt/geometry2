@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(tf2_py)
 
-# Default to C++17
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-endif()
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -27,7 +21,7 @@ endif()
 # /usr/bin/python3.10, /usr/bin/python3.11, and /usr/bin/python3, it will find
 # /usr/bin/python3.11, even if /usr/bin/python3 points to /usr/bin/python3.10.
 # The behavior we want is to prefer the "system" installed version unless the
-# user specifically tells us othewise through the Python3_EXECUTABLE hint.
+# user specifically tells us otherwise through the Python3_EXECUTABLE hint.
 # Setting CMP0094 to NEW means that the search will stop after the first
 # python version is found.  Setting Python3_FIND_UNVERSIONED_NAMES means that
 # the search will prefer /usr/bin/python3 over /usr/bin/python3.11.  And that
@@ -40,6 +34,8 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 
@@ -61,7 +57,9 @@ set_target_properties(_tf2_py PROPERTIES
 )
 
 target_link_libraries(_tf2_py PRIVATE
-  ${geometry_msgs_TARGETS}
+  ament_cmake_ros_core::ament_ros_defaults
+  builtin_interfaces::builtin_interfaces
+  geometry_msgs::geometry_msgs
   tf2::tf2
 )
 

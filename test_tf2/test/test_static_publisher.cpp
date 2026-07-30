@@ -39,10 +39,10 @@
 #include <tf2/buffer_core.hpp>
 #include <tf2/exceptions.hpp>
 #include <tf2/time.hpp>
-#include <tf2_ros/buffer.h>
-#include <tf2_ros/buffer_interface.h>
-#include <tf2_ros/static_transform_broadcaster.h>
-#include <tf2_ros/transform_listener.h>
+#include <tf2_ros/buffer.hpp>
+#include <tf2_ros/buffer_interface.hpp>
+#include <tf2_ros/static_transform_broadcaster.hpp>
+#include <tf2_ros/transform_listener.hpp>
 
 #include "permuter.hpp"
 
@@ -54,7 +54,7 @@ TEST(StaticTransformPublisher, a_b_different_times)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer mB(clock);
-  tf2_ros::TransformListener tfl(mB, node, false);
+  tf2_ros::TransformListener tfl(mB, *node, false);
 
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
@@ -89,7 +89,7 @@ TEST(StaticTransformPublisher, a_c_different_times)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer mB(clock);
-  tf2_ros::TransformListener tfl(mB, node, false);
+  tf2_ros::TransformListener tfl(mB, *node, false);
 
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
@@ -123,7 +123,7 @@ TEST(StaticTransformPublisher, a_d_different_times)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer mB(clock);
-  tf2_ros::TransformListener tfl(mB, node, false);
+  tf2_ros::TransformListener tfl(mB, *node, false);
 
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
@@ -174,7 +174,7 @@ TEST(StaticTransformPublisher, multiple_parent_test)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer mB(clock);
-  tf2_ros::TransformListener tfl(mB, node, false);
+  tf2_ros::TransformListener tfl(mB, *node, false);
 
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
@@ -194,7 +194,7 @@ TEST(StaticTransformPublisher, multiple_parent_test)
     }
   }
 
-  tf2_ros::StaticTransformBroadcaster stb(node);
+  tf2_ros::StaticTransformBroadcaster stb(*node);
   geometry_msgs::msg::TransformStamped ts;
   ts.transform.rotation.w = 1;
   ts.header.frame_id = "c";

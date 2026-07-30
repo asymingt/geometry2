@@ -31,7 +31,7 @@
 #define TF2_ROS__QOS_HPP_
 
 #include <rclcpp/qos.hpp>
-#include <tf2_ros/visibility_control.h>
+#include <tf2_ros/visibility_control.hpp>
 
 namespace tf2_ros
 {
@@ -39,35 +39,25 @@ namespace tf2_ros
 class TF2_ROS_PUBLIC DynamicListenerQoS : public rclcpp::QoS
 {
 public:
-  explicit DynamicListenerQoS(size_t depth = 100)
-  : rclcpp::QoS(depth) {}
+  explicit DynamicListenerQoS(size_t depth = 100);
 };
 
 class TF2_ROS_PUBLIC DynamicBroadcasterQoS : public rclcpp::QoS
 {
 public:
-  explicit DynamicBroadcasterQoS(size_t depth = 100)
-  : rclcpp::QoS(depth) {}
+  explicit DynamicBroadcasterQoS(size_t depth = 100);
 };
 
 class TF2_ROS_PUBLIC StaticListenerQoS : public rclcpp::QoS
 {
 public:
-  explicit StaticListenerQoS(size_t depth = 100)
-  : rclcpp::QoS(depth)
-  {
-    transient_local();
-  }
+  explicit StaticListenerQoS(size_t depth = 100);
 };
 
 class TF2_ROS_PUBLIC StaticBroadcasterQoS : public rclcpp::QoS
 {
 public:
-  explicit StaticBroadcasterQoS(size_t depth = 1)
-  : rclcpp::QoS(depth)
-  {
-    transient_local();
-  }
+  explicit StaticBroadcasterQoS(size_t depth = 1);
 };
 }  // namespace tf2_ros
 

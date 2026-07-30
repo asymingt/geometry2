@@ -28,9 +28,10 @@
  */
 
 #include <gtest/gtest.h>
-#include <tf2_ros/transform_broadcaster.h>
 
 #include <memory>
+
+#include <tf2_ros/transform_broadcaster.hpp>
 
 #include "node_wrapper.hpp"
 
@@ -43,7 +44,7 @@ public:
 
   void init_tf_broadcaster()
   {
-    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(shared_from_this());
+    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(*this);
   }
 
 private:
@@ -53,10 +54,6 @@ private:
 TEST(tf2_test_transform_broadcaster, transform_broadcaster_rclcpp_node)
 {
   auto node = rclcpp::Node::make_shared("tf2_ros_message_filter");
-  // Construct tf broadcaster from node pointer
-  {
-    tf2_ros::TransformBroadcaster tfb(node);
-  }
   // Construct tf broadcaster from node object
   {
     tf2_ros::TransformBroadcaster tfb(*node);
@@ -64,19 +61,17 @@ TEST(tf2_test_transform_broadcaster, transform_broadcaster_rclcpp_node)
   // Construct tf broadcaster from node interfaces
   {
     tf2_ros::TransformBroadcaster tfb(
+      rclcpp::node_interfaces::NodeInterfaces<
+        rclcpp::node_interfaces::NodeParametersInterface,
+        rclcpp::node_interfaces::NodeTopicsInterface>(
       node->get_node_parameters_interface(),
-      node->get_node_topics_interface());
+      node->get_node_topics_interface()));
   }
 }
 
 TEST(tf2_test_transform_broadcaster, transform_broadcaster_custom_rclcpp_node)
 {
   auto node = std::make_shared<NodeWrapper>("tf2_ros_message_filter");
-
-  // Construct tf broadcaster from node pointer
-  {
-    tf2_ros::TransformBroadcaster tfb(node);
-  }
   // Construct tf broadcaster from node object
   {
     tf2_ros::TransformBroadcaster tfb(*node);
@@ -84,8 +79,11 @@ TEST(tf2_test_transform_broadcaster, transform_broadcaster_custom_rclcpp_node)
   // Construct tf broadcaster from node interfaces
   {
     tf2_ros::TransformBroadcaster tfb(
+      rclcpp::node_interfaces::NodeInterfaces<
+        rclcpp::node_interfaces::NodeParametersInterface,
+        rclcpp::node_interfaces::NodeTopicsInterface>(
       node->get_node_parameters_interface(),
-      node->get_node_topics_interface());
+      node->get_node_topics_interface()));
   }
 }
 

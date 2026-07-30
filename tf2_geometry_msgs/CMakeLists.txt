@@ -1,11 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(tf2_geometry_msgs)
 
-# Default to C++17
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -Wnon-virtual-dtor -Woverloaded-virtual)
 endif()
@@ -16,7 +11,7 @@ endif()
 # /usr/bin/python3.10, /usr/bin/python3.11, and /usr/bin/python3, it will find
 # /usr/bin/python3.11, even if /usr/bin/python3 points to /usr/bin/python3.10.
 # The behavior we want is to prefer the "system" installed version unless the
-# user specifically tells us othewise through the Python3_EXECUTABLE hint.
+# user specifically tells us otherwise through the Python3_EXECUTABLE hint.
 # Setting CMP0094 to NEW means that the search will stop after the first
 # python version is found.  Setting Python3_FIND_UNVERSIONED_NAMES means that
 # the search will prefer /usr/bin/python3 over /usr/bin/python3.11.  And that
@@ -28,7 +23,6 @@ set(Python3_FIND_UNVERSIONED_NAMES FIRST)
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 find_package(geometry_msgs REQUIRED)
-find_package(orocos_kdl_vendor REQUIRED)
 find_package(orocos_kdl REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -41,7 +35,7 @@ target_include_directories(${PROJECT_NAME} INTERFACE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 target_link_libraries(${PROJECT_NAME} INTERFACE
-  ${geometry_msgs_TARGETS}
+  geometry_msgs::geometry_msgs
   orocos-kdl
   tf2::tf2
   tf2_ros::tf2_ros)
@@ -57,6 +51,7 @@ if(BUILD_TESTING)
   ament_cppcheck(LANGUAGE "c++")
 
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_ros_core REQUIRED)
   find_package(rclcpp REQUIRED)
 
   find_package(ament_cmake_pytest REQUIRED)
@@ -65,7 +60,9 @@ if(BUILD_TESTING)
   ament_add_gtest(test_tf2_geometry_msgs test/test_tf2_geometry_msgs.cpp)
   if(TARGET test_tf2_geometry_msgs)
     target_link_libraries(test_tf2_geometry_msgs
+      ament_cmake_ros_core::ament_ros_defaults
       ${PROJECT_NAME}
+      Eigen3::Eigen
       rclcpp::rclcpp
       # Used, but not linked to test ${PROJECT_NAME}'s exports:
       #   tf2_ros::tf2_ros
@@ -80,7 +77,6 @@ ament_export_include_directories("include/${PROJECT_NAME}")
 ament_export_targets(export_${PROJECT_NAME})
 ament_export_dependencies(
   "geometry_msgs"
-  "orocos_kdl_vendor"
   "orocos_kdl"
   "tf2"
   "tf2_ros")

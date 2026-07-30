@@ -25,7 +25,10 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-/** \author Tully Foote */
+
+/** \file
+ *  \brief Author: Tully Foote
+ */
 
 #ifndef TF2__TRANSFORM_STORAGE_HPP_
 #define TF2__TRANSFORM_STORAGE_HPP_
@@ -52,37 +55,16 @@ public:
     CompactFrameID child_frame_id);
 
   TF2_PUBLIC
-  TransformStorage(const TransformStorage & rhs)
-  {
-    *this = rhs;
-  }
+  TransformStorage(const TransformStorage & rhs);
 
   TF2_PUBLIC
-  TransformStorage & operator=(const TransformStorage & rhs)
-  {
-    rotation_ = rhs.rotation_;
-    translation_ = rhs.translation_;
-    stamp_ = rhs.stamp_;
-    frame_id_ = rhs.frame_id_;
-    child_frame_id_ = rhs.child_frame_id_;
-    return *this;
-  }
+  TransformStorage & operator=(const TransformStorage & rhs);
 
   TF2_PUBLIC
-  bool operator==(const TransformStorage & rhs) const
-  {
-    return (this->rotation_ == rhs.rotation_) &&
-           (this->translation_ == rhs.translation_) &&
-           (this->stamp_ == rhs.stamp_) &&
-           (this->frame_id_ == rhs.frame_id_) &&
-           (this->child_frame_id_ == rhs.child_frame_id_);
-  }
+  bool operator==(const TransformStorage & rhs) const;
 
   TF2_PUBLIC
-  bool operator!=(const TransformStorage & rhs) const
-  {
-    return !(*this == rhs);
-  }
+  bool operator!=(const TransformStorage & rhs) const;
 
   tf2::Quaternion rotation_;
   tf2::Vector3 translation_;

@@ -37,9 +37,9 @@
 
 #include <memory>
 
-#include "tf2_ros/buffer.h"
-#include "tf2_ros/buffer_server.h"
-#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.hpp"
+#include "tf2_ros/buffer_server.hpp"
+#include "tf2_ros/transform_listener.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 
@@ -49,7 +49,7 @@ int main(int argc, char ** argv)
   auto node = std::make_shared<rclcpp::Node>("tf_buffer");
   double buffer_size = node->declare_parameter("buffer_size", 120.0);
 
-  tf2_ros::Buffer buffer(node->get_clock(), tf2::durationFromSec(buffer_size));
+  tf2_ros::Buffer buffer(node->get_clock(), tf2::durationFromSec(buffer_size), *node);
   tf2_ros::TransformListener listener(buffer);
   tf2_ros::BufferServer buffer_server(buffer, node, "tf2_buffer_server");
 

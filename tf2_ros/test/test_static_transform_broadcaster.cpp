@@ -28,9 +28,10 @@
  */
 
 #include <gtest/gtest.h>
-#include <tf2_ros/static_transform_broadcaster.h>
 
 #include <memory>
+
+#include <tf2_ros/static_transform_broadcaster.hpp>
 
 #include "node_wrapper.hpp"
 
@@ -43,7 +44,7 @@ public:
 
   void init_tf_broadcaster()
   {
-    tf_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(shared_from_this());
+    tf_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*shared_from_this());
   }
 
 private:
@@ -59,7 +60,7 @@ public:
 
   void init_tf_broadcaster()
   {
-    tf_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(shared_from_this());
+    tf_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*shared_from_this());
   }
 
 private:
@@ -70,19 +71,18 @@ TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_rclcpp_node)
 {
   auto node = rclcpp::Node::make_shared("tf2_ros_message_filter");
 
-  // Construct static tf broadcaster from node pointer
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(node);
-  }
   // Construct static tf broadcaster from node object
   {
     tf2_ros::StaticTransformBroadcaster tfb(*node);
   }
-  // Construct static tf broadcaster from node interfaces
+  // Construct static tf broadcaster from NodeInterfaces
   {
     tf2_ros::StaticTransformBroadcaster tfb(
+      rclcpp::node_interfaces::NodeInterfaces<
+        rclcpp::node_interfaces::NodeParametersInterface,
+        rclcpp::node_interfaces::NodeTopicsInterface>(
       node->get_node_parameters_interface(),
-      node->get_node_topics_interface());
+      node->get_node_topics_interface()));
   }
 }
 
@@ -99,10 +99,6 @@ TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_custom_rclcpp_
 {
   auto node = std::make_shared<NodeWrapper>("tf2_ros_message_filter");
 
-  // Construct static tf broadcaster from node pointer
-  {
-    tf2_ros::StaticTransformBroadcaster tfb(node);
-  }
   // Construct static tf broadcaster from node object
   {
     tf2_ros::StaticTransformBroadcaster tfb(*node);
@@ -110,8 +106,11 @@ TEST(tf2_test_static_transform_broadcaster, transform_broadcaster_custom_rclcpp_
   // Construct static tf broadcaster from node interfaces
   {
     tf2_ros::StaticTransformBroadcaster tfb(
+      rclcpp::node_interfaces::NodeInterfaces<
+        rclcpp::node_interfaces::NodeParametersInterface,
+        rclcpp::node_interfaces::NodeTopicsInterface>(
       node->get_node_parameters_interface(),
-      node->get_node_topics_interface());
+      node->get_node_topics_interface()));
   }
 }
 

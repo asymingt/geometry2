@@ -28,13 +28,15 @@
  */
 
 #include <gtest/gtest.h>
-#include <tf2_ros/buffer.h>
-#include <tf2_ros/transform_listener.h>
-#include <tf2_ros/transform_broadcaster.h>
-#include <tf2_ros/static_transform_broadcaster.h>
 
 #include <chrono>
 #include <memory>
+
+#include <tf2_ros/buffer.hpp>
+#include <tf2_ros/transform_listener.hpp>
+#include <tf2_ros/transform_broadcaster.hpp>
+#include <tf2_ros/static_transform_broadcaster.hpp>
+
 
 #include "node_wrapper.hpp"
 
@@ -49,7 +51,7 @@ public:
   {
     rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
     tf2_ros::Buffer buffer(clock);
-    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(buffer, shared_from_this(), false);
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(buffer, *this, false);
   }
 
   void init_static_tf_listener()
@@ -57,7 +59,7 @@ public:
     rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
     tf2_ros::Buffer buffer(clock);
     tf_listener_ =
-      std::make_shared<tf2_ros::StaticTransformListener>(buffer, shared_from_this(), false);
+      std::make_shared<tf2_ros::StaticTransformListener>(buffer, *this, false);
   }
 
 private:
@@ -75,7 +77,7 @@ public:
   {
     rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
     tf2_ros::Buffer buffer(clock);
-    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(buffer, shared_from_this(), false);
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(buffer, *this, false);
   }
 
   void init_static_tf_listener()
@@ -83,7 +85,7 @@ public:
     rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
     tf2_ros::Buffer buffer(clock);
     tf_listener_ =
-      std::make_shared<tf2_ros::StaticTransformListener>(buffer, shared_from_this(), false);
+      std::make_shared<tf2_ros::StaticTransformListener>(buffer, *this, false);
   }
 
 private:
@@ -96,7 +98,7 @@ TEST(tf2_test_transform_listener, transform_listener_rclcpp_node)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer buffer(clock);
-  tf2_ros::TransformListener tfl(buffer, node, false);
+  tf2_ros::TransformListener tfl(buffer, *node, false);
 }
 
 TEST(tf2_test_transform_listener, transform_listener_custom_rclcpp_node)
@@ -105,7 +107,7 @@ TEST(tf2_test_transform_listener, transform_listener_custom_rclcpp_node)
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer buffer(clock);
-  tf2_ros::TransformListener tfl(buffer, node, false);
+  tf2_ros::TransformListener tfl(buffer, *node, false);
 }
 
 TEST(tf2_test_transform_listener, transform_listener_as_member)
@@ -137,7 +139,7 @@ TEST(tf2_test_static_transform_listener, static_transform_listener_custom_rclcpp
 
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer buffer(clock);
-  tf2_ros::StaticTransformListener tfl(buffer, node, false);
+  tf2_ros::StaticTransformListener tfl(buffer, *node, false);
 }
 
 TEST(tf2_test_static_transform_listener, static_transform_listener_as_member)
@@ -162,10 +164,10 @@ TEST(tf2_test_listeners, static_vs_dynamic)
   rclcpp::Clock::SharedPtr clock = std::make_shared<rclcpp::Clock>(RCL_SYSTEM_TIME);
   tf2_ros::Buffer dynamic_buffer(clock);
   tf2_ros::Buffer static_buffer(clock);
-  tf2_ros::TransformListener tfl(dynamic_buffer, node, true);
-  tf2_ros::StaticTransformListener stfl(static_buffer, node, true);
-  tf2_ros::TransformBroadcaster broadcaster(node);
-  tf2_ros::StaticTransformBroadcaster static_broadcaster(node);
+  tf2_ros::TransformListener tfl(dynamic_buffer, *node, true);
+  tf2_ros::StaticTransformListener stfl(static_buffer, *node, true);
+  tf2_ros::TransformBroadcaster broadcaster(*node);
+  tf2_ros::StaticTransformBroadcaster static_broadcaster(*node);
 
   geometry_msgs::msg::TransformStamped static_trans;
   static_trans.header.stamp = clock->now();
@@ -179,11 +181,13 @@ TEST(tf2_test_listeners, static_vs_dynamic)
   dynamic_trans.child_frame_id = "child_dynamic";
   dynamic_trans.transform.rotation.w = 1.0;
 
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(node);
   for (int i = 0; i < 10; ++i) {
     dynamic_trans.header.stamp = clock->now();
     broadcaster.sendTransform(dynamic_trans);
 
-    rclcpp::spin_some(node);
+    executor.spin_some();
     rclcpp::sleep_for(std::chrono::milliseconds(10));
   }
 

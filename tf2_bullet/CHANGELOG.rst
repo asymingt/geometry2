@@ -2,6 +2,63 @@
 Changelog for package tf2_bullet
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.46.3 (2026-07-28)
+-------------------
+
+0.46.2 (2026-07-14)
+-------------------
+* use C++ 20 in default. (`#953 <https://github.com/ros2/geometry2/issues/953>`_)
+* Contributors: Tomoya Fujita
+
+0.46.1 (2026-06-29)
+-------------------
+* Cleanup headers (`#928 <https://github.com/ros2/geometry2/issues/928>`_)
+* Contributors: Alejandro Hernández Cordero
+
+0.46.0 (2026-05-07)
+-------------------
+
+0.45.7 (2026-04-09)
+-------------------
+* Use new ROSIDL aggregate CMake target (`#907 <https://github.com/ros2/geometry2/issues/907>`_)
+* Contributors: Emerson Knapp
+
+0.45.6 (2026-01-09)
+-------------------
+
+0.45.5 (2025-12-16)
+-------------------
+* Move \author tags to \file \brief (`#870 <https://github.com/ros2/geometry2/issues/870>`_)
+* Modernize conf.py files to only include modified Copyright, eliminati… (`#865 <https://github.com/ros2/geometry2/issues/865>`_)
+* Contributors: R Kent James
+
+0.45.4 (2025-11-28)
+-------------------
+
+0.45.3 (2025-11-24)
+-------------------
+* Disable TAGFILES in rosdoc2 to separate namespace tf2 documentation into packages (`#856 <https://github.com/ros2/geometry2/issues/856>`_)
+* Contributors: R Kent James
+
+0.45.2 (2025-11-07)
+-------------------
+
+0.45.1 (2025-10-17)
+-------------------
+
+0.45.0 (2025-08-27)
+-------------------
+* Set Cmake Policy CMP0144 (`#819 <https://github.com/ros2/geometry2/issues/819>`_)
+* Contributors: Cristóbal Arroyo
+
+0.44.0 (2025-07-29)
+-------------------
+
+0.43.1 (2025-07-18)
+-------------------
+* Change tf2_ros C to C++ headers (`#805 <https://github.com/ros2/geometry2/issues/805>`_)
+* Contributors: Gary Servin
+
 0.43.0 (2025-07-01)
 -------------------
 

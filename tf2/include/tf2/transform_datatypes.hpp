@@ -26,7 +26,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-/** \author Tully Foote */
+/** \file
+ *  \brief Author: Tully Foote
+ */
 
 #ifndef TF2__TRANSFORM_DATATYPES_HPP_
 #define TF2__TRANSFORM_DATATYPES_HPP_
@@ -40,8 +42,8 @@
 namespace tf2
 {
 
-/** \brief The data type which will be cross compatable with geometry_msgs
- * This is the tf2 datatype equivilant of a MessageStamped */
+/** \brief The data type which will be cross compatible with geometry_msgs
+ * This is the tf2 datatype equivalent of a MessageStamped */
 template<typename T>
 class Stamped : public T
 {
@@ -89,7 +91,7 @@ bool operator==(const Stamped<T> & a, const Stamped<T> & b)
          static_cast<const T &>(a) == static_cast<const T &>(b);
 }
 
-/** \brief The data type which will be cross compatable with geometry_msgs
+/** \brief The data type which will be cross compatible with geometry_msgs
  * This is the tf2 datatype equivalent of a MessageWithCovarianceStamped */
 template<typename T>
 class WithCovarianceStamped : public T

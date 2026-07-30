@@ -32,10 +32,11 @@
 
 #include <memory>
 
-#include "tf2_ros/static_transform_broadcaster.h"
-#include "tf2_ros/static_transform_broadcaster_visibility_control.h"
+#include "tf2_ros/static_transform_broadcaster.hpp"
+#include "tf2_ros/static_transform_broadcaster_visibility_control.hpp"
 
-#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/node.hpp"
+#include "rclcpp/node_options.hpp"
 
 namespace tf2_ros
 {

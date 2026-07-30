@@ -64,8 +64,8 @@
 #include "tf2/convert.hpp"
 #include "tf2/transform_datatypes.hpp"
 #include "tf2_eigen/tf2_eigen.hpp"
-#include "tf2_ros/buffer.h"
-#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.hpp"
+#include "tf2_ros/transform_listener.hpp"
 
 TEST(TfEigen, ConvertVector3dStamped)
 {
@@ -293,7 +293,7 @@ TEST_F(EigenBufferTransform, WrenchTransform)
   // simple api
   const tf2::Stamped<Eigen::Quaterniond> q_simple =
     tf_buffer->transform(q1, "B", tf2::durationFromSec(2.0));
-  // compare rotation matrices, as the quaternions can be ambigous
+  // compare rotation matrices, as the quaternions can be ambiguous
   EXPECT_TRUE(q_simple.toRotationMatrix().isApprox(expected.toRotationMatrix(), eps));
 
   // advanced api

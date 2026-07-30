@@ -43,8 +43,8 @@
 
 #include "rclcpp/clock.hpp"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
-#include "tf2_ros/buffer.h"
-#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.hpp"
+#include "tf2_ros/transform_listener.hpp"
 
 #include <geometry_msgs/msg/velocity_stamped.hpp>
 
@@ -665,6 +665,60 @@ TEST(TfGeometry, Velocity)
   geometry_msgs::msg::TransformStamped trafo;
 
   tf2::doTransform(v1, res, trafo);
+}
+
+TEST(TfGeometry, VelocityIdentityRotation)
+{
+  geometry_msgs::msg::VelocityStamped v1, res;
+  v1.header.frame_id = "world";
+  v1.body_frame_id = "base_link";
+  v1.velocity.linear.x = 1.0;
+  v1.velocity.linear.y = 2.0;
+  v1.velocity.linear.z = 3.0;
+  v1.velocity.angular.x = 4.0;
+  v1.velocity.angular.y = 5.0;
+  v1.velocity.angular.z = 6.0;
+
+  geometry_msgs::msg::TransformStamped trafo;
+  trafo.header.frame_id = "map";
+  trafo.transform.rotation = tf2::toMsg(tf2::Quaternion::getIdentity());
+
+  tf2::doTransform(v1, res, trafo);
+
+  EXPECT_EQ(res.header.frame_id, trafo.header.frame_id);
+  EXPECT_NEAR(res.velocity.linear.x, v1.velocity.linear.x, EPS);
+  EXPECT_NEAR(res.velocity.linear.y, v1.velocity.linear.y, EPS);
+  EXPECT_NEAR(res.velocity.linear.z, v1.velocity.linear.z, EPS);
+  EXPECT_NEAR(res.velocity.angular.x, v1.velocity.angular.x, EPS);
+  EXPECT_NEAR(res.velocity.angular.y, v1.velocity.angular.y, EPS);
+  EXPECT_NEAR(res.velocity.angular.z, v1.velocity.angular.z, EPS);
+}
+
+TEST(TfGeometry, VelocityTranslation)
+{
+  geometry_msgs::msg::VelocityStamped v1, res;
+  v1.header.frame_id = "world";
+  v1.velocity.linear.x = 1.0;
+  v1.velocity.linear.y = 2.0;
+  v1.velocity.linear.z = 3.0;
+  v1.velocity.angular.x = 0.0;
+  v1.velocity.angular.y = 0.0;
+  v1.velocity.angular.z = 1.0;
+
+  geometry_msgs::msg::TransformStamped trafo;
+  trafo.header.frame_id = "map";
+  trafo.transform.translation.x = 1.0;
+  trafo.transform.rotation = tf2::toMsg(tf2::Quaternion::getIdentity());
+
+  tf2::doTransform(v1, res, trafo);
+
+  EXPECT_EQ(res.header.frame_id, trafo.header.frame_id);
+  EXPECT_NEAR(res.velocity.linear.x, 1.0, EPS);
+  EXPECT_NEAR(res.velocity.linear.y, 1.0, EPS);
+  EXPECT_NEAR(res.velocity.linear.z, 3.0, EPS);
+  EXPECT_NEAR(res.velocity.angular.x, 0.0, EPS);
+  EXPECT_NEAR(res.velocity.angular.y, 0.0, EPS);
+  EXPECT_NEAR(res.velocity.angular.z, 1.0, EPS);
 }
 
 int main(int argc, char ** argv)
